@@ -9,12 +9,12 @@ from models import Users
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
-
+import keyvault
 router = APIRouter(
     prefix='/auth',
     tags=['auth']
 )
-SECRET_KEY = '202643d97f02ca3216d58e7df0ba'
+SECRET_KEY = keyvault.config_manager.get("secret-key")
 ALGORITHM = 'HS256'
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/token')
